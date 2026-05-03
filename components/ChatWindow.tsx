@@ -194,8 +194,11 @@ export default function ChatWindow({ selectedChat }: ChatWindowProps) {
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on("state_changed", 
-      (snapshot) => setUploadProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100),
-      (error) => { console.error(error); setUploadProgress(null); },
+      (snapshot) => {
+        const progress = snapshot.totalBytes > 0 ? (snapshot.bytesTransferred / snapshot.totalBytes) * 100 : 0;
+        setUploadProgress(progress);
+      },
+      (error) => { console.error("Upload error:", error); alert("Upload failed: " + error.message); setUploadProgress(null); },
       async () => {
         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
         const messageData = {
