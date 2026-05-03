@@ -1,10 +1,10 @@
 @AGENTS.md
 
 ## Build & Dev
-- Run dev: `npm run dev`
-- Build: `npm run build`
-- Start: `npm run start`
-- Lint: `npm run lint`
+- Run dev: `pnpm dev`
+- Build: `pnpm build`
+- Start: `pnpm start`
+- Lint: `pnpm lint`
 
 ## Firebase Setup
 1. Create a Firebase project at console.firebase.google.com
