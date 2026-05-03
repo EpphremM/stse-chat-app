@@ -118,12 +118,12 @@ export default function ChatWindow({ selectedChat }: ChatWindowProps) {
     if (snapshot.docs.length < 50) setHasMore(false);
   };
 
-  // Real-time listener for NEW messages only
+  // Real-time listener for recent messages (handles edits/reactions)
   useEffect(() => {
     const q = query(
       collection(db, "rooms", roomId, "messages"),
       orderBy("timestamp", "desc"),
-      limit(1)
+      limit(50)
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -198,7 +198,7 @@ export default function ChatWindow({ selectedChat }: ChatWindowProps) {
       (error) => { console.error(error); setUploadProgress(null); },
       async () => {
         const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-        await addDoc(collection(db, "rooms", roomId, "messages"), {
+        const messageData = {
           type,
           fileUrl: downloadURL,
           fileName,
@@ -206,6 +206,12 @@ export default function ChatWindow({ selectedChat }: ChatWindowProps) {
           senderId: currentUser!.uid,
           timestamp: serverTimestamp(),
           read: false,
+        };
+        const docRef = await addDoc(collection(db, "rooms", roomId, "messages"), messageData);
+        sendMessage({
+          ...messageData,
+          id: docRef.id,
+          timestamp: new Date().toISOString(),
         });
         setUploadProgress(null);
       }
@@ -432,16 +438,18 @@ export default function ChatWindow({ selectedChat }: ChatWindowProps) {
             >
               <div className="group relative flex items-center gap-2 max-w-[85%] md:max-w-[70%]">
                 {/* Reaction Picker (Hover) */}
-                <div className={`absolute -top-10 ${isMe ? "right-0" : "left-0"} hidden group-hover:flex items-center gap-1 bg-slate-800 border border-slate-700 p-1.5 rounded-full shadow-2xl z-20`}>
-                  {["👍", "❤️", "😂", "😮", "😢"].map(emoji => (
-                    <button 
-                      key={emoji}
-                      onClick={() => addReaction(msg.id!, emoji)}
-                      className="hover:scale-125 transition-transform px-1"
-                    >
-                      {emoji}
-                    </button>
-                  ))}
+                <div className={`absolute -top-12 ${isMe ? "right-0" : "left-0"} hidden group-hover:flex items-end pb-4 z-20`}>
+                  <div className="flex items-center gap-1 bg-slate-800 border border-slate-700 p-1.5 rounded-full shadow-2xl">
+                    {["👍", "❤️", "😂", "😮", "😢"].map(emoji => (
+                      <button 
+                        key={emoji}
+                        onClick={() => addReaction(msg.id!, emoji)}
+                        className="hover:scale-125 transition-transform px-1"
+                      >
+                        {emoji}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 <div
