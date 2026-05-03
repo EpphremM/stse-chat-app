@@ -8,18 +8,24 @@ importers:
 
   .:
     dependencies:
+<<<<<<< HEAD
       cloudinary:
         specifier: ^2.10.0
         version: 2.10.0
+=======
+>>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
+<<<<<<< HEAD
       dotenv:
         specifier: ^17.4.2
         version: 17.4.2
+=======
+>>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
       firebase:
         specifier: ^12.12.1
         version: 12.12.1
@@ -1110,10 +1116,13 @@ packages:
     resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}
     engines: {node: '>=12'}
 
+<<<<<<< HEAD
   cloudinary@2.10.0:
     resolution: {integrity: sha512-sY09kYg7wprkndAOjZBAYqFZqwL+SxnEGcAvksOvFA+5upnFn949UjkEkHKNSwkBtW/xRDd0p6NgbSXZcxkI3w==}
     engines: {node: '>=9'}
 
+=======
+>>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
@@ -1819,9 +1828,12 @@ packages:
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
+<<<<<<< HEAD
   lodash@4.18.1:
     resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
+=======
+>>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
   long@5.3.2:
     resolution: {integrity: sha512-mNAgZ1GmyNhD7AuqnTG3/VQ26o760+ZYBPKjPvugO8+nLbYfX6TVpJPseBvopbdY+qpZ/lKUnmEc1LeZYS3QAA==}
 
@@ -3519,10 +3531,13 @@ snapshots:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
 
+<<<<<<< HEAD
   cloudinary@2.10.0:
     dependencies:
       lodash: 4.18.1
 
+=======
+>>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
   clsx@2.1.1: {}
 
   color-convert@2.0.1:
@@ -4388,8 +4403,11 @@ snapshots:
 
   lodash.merge@4.6.2: {}
 
+<<<<<<< HEAD
   lodash@4.18.1: {}
 
+=======
+>>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
   long@5.3.2: {}
 
   loose-envify@1.4.0:

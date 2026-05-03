@@ -9,10 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "cloudinary": "^2.10.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "dotenv": "^17.4.2",
+=======
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+>>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
     "firebase": "^12.12.1",
     "lucide-react": "^1.14.0",
     "next": "16.2.4",
