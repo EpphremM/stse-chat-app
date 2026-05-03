@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { io, Socket } from "socket.io-client";
 
+export type SocketMessage = Record<string, unknown>;
+
 export const useSocket = (roomId: string | null) => {
   const socketRef = useRef<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    // Create socket connection
     const socket = io();
     socketRef.current = socket;
 
@@ -26,6 +27,7 @@ export const useSocket = (roomId: string | null) => {
     return () => {
       socket.disconnect();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- socket is singleton; room join handled below
   }, []);
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export const useSocket = (roomId: string | null) => {
     }
   }, [roomId, isConnected]);
 
-  const sendMessage = (data: any) => {
+  const sendMessage = (data: SocketMessage) => {
     if (socketRef.current && isConnected) {
       socketRef.current.emit("send-message", { ...data, roomId });
     }
@@ -46,7 +48,7 @@ export const useSocket = (roomId: string | null) => {
     }
   };
 
-  const onMessage = (callback: (data: any) => void) => {
+  const onMessage = (callback: (data: SocketMessage) => void) => {
     if (socketRef.current) {
       socketRef.current.on("receive-message", callback);
     }
@@ -55,7 +57,7 @@ export const useSocket = (roomId: string | null) => {
     };
   };
 
-  const onTyping = (callback: (data: any) => void) => {
+  const onTyping = (callback: (data: SocketMessage) => void) => {
     if (socketRef.current) {
       socketRef.current.on("user-typing", callback);
     }

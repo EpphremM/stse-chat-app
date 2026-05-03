@@ -1,17 +1,101 @@
 @import "tailwindcss";
 
+/* Semantic theme tokens — `html.light` switches palette (see AuthContext + layout script). */
 :root {
-  --background: #0f172a;
-  --foreground: #f8fafc;
+  --background: #0c0c0c;
+  --foreground: #f5f5f5;
+  --muted: #737373;
+  --border: #262626;
+  --surface: #141414;
+  --surface-2: #1a1a1a;
+  --accent: #f5f5f5;
+  --accent-fg: #0c0c0c;
+  --input-bg: #0c0c0c;
+  --danger: #dc2626;
+  --danger-muted: rgba(220, 38, 38, 0.12);
+  --link-hover: #d4d4d4;
+  --bubble-me-bg: #f5f5f5;
+  --bubble-me-fg: #0c0c0c;
+  --bubble-me-meta: #525252;
+  --bubble-other-bg: #1a1a1a;
+  --bubble-other-fg: #f5f5f5;
+  --bubble-other-meta: #a3a3a3;
+  --highlight: #facc15;
+  --highlight-fg: #0c0c0c;
+  --typing: #f5f5f5;
+  --progress-track: #262626;
+  --scrollbar: #404040;
+  --scrollbar-hover: #525252;
+  /* Brand — use sparingly (logo, one primary CTA). */
+  --identity: #473bf0;
+  --identity-fg: #ffffff;
+  --secondary: #acadbc;
+  --secondary-fg: #0c0c0c;
+}
+
+html.light {
+  --background: #f5f5f5;
+  --foreground: #0c0c0c;
+  --muted: #525252;
+  --border: #d4d4d4;
+  --surface: #ffffff;
+  --surface-2: #ebebeb;
+  --accent: #0c0c0c;
+  --accent-fg: #f5f5f5;
+  --input-bg: #ffffff;
+  --danger: #b91c1c;
+  --danger-muted: rgba(185, 28, 28, 0.1);
+  --link-hover: #171717;
+  --bubble-me-bg: #0c0c0c;
+  --bubble-me-fg: #f5f5f5;
+  --bubble-me-meta: #a3a3a3;
+  --bubble-other-bg: #ffffff;
+  --bubble-other-fg: #0c0c0c;
+  --bubble-other-meta: #525252;
+  --highlight: #ca8a04;
+  --highlight-fg: #0c0c0c;
+  --typing: #0c0c0c;
+  --progress-track: #e5e5e5;
+  --scrollbar: #a3a3a3;
+  --scrollbar-hover: #737373;
+  --identity: #473bf0;
+  --identity-fg: #ffffff;
+  --secondary: #acadbc;
+  --secondary-fg: #0c0c0c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-input: var(--input-bg);
+  --color-danger: var(--danger);
+  --color-link-hover: var(--link-hover);
+  --color-bubble-me: var(--bubble-me-bg);
+  --color-bubble-me-fg: var(--bubble-me-fg);
+  --color-bubble-other: var(--bubble-other-bg);
+  --color-bubble-other-fg: var(--bubble-other-fg);
+  --color-highlight: var(--highlight);
+  --color-highlight-fg: var(--highlight-fg);
+  --color-typing: var(--typing);
+  --color-identity: var(--identity);
+  --color-identity-fg: var(--identity-fg);
+  --color-secondary: var(--secondary);
+  --color-secondary-fg: var(--secondary-fg);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Custom Scrollbar */
+/* Custom scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
@@ -21,20 +105,25 @@ body {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 10px;
+  background: var(--scrollbar);
+  border-radius: 0;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: var(--scrollbar-hover);
 }
 
-/* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.3s ease-out forwards;
+  animation: fadeIn 0.2s ease-out forwards;
 }
