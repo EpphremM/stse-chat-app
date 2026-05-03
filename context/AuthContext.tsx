@@ -1,7 +1,6 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
-<<<<<<< HEAD
 import {
   onAuthStateChanged,
   User,
@@ -10,15 +9,6 @@ import {
 import { doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
 import { Loader2 } from "lucide-react";
-=======
-import { 
-  onAuthStateChanged, 
-  User, 
-  signOut as firebaseSignOut 
-} from "firebase/auth";
-import { doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
-import { auth, db } from "@/lib/firebase";
->>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
 
 interface AuthContextType {
   user: User | null;
@@ -32,36 +22,18 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
   theme: "dark",
-<<<<<<< HEAD
   toggleTheme: () => { },
   logout: async () => { },
-=======
-  toggleTheme: () => {},
-  logout: async () => {},
->>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-<<<<<<< HEAD
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof window === "undefined") return "dark";
     const raw = localStorage.getItem("chat-theme");
     return raw === "light" || raw === "dark" ? raw : "dark";
   });
-=======
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
-
-  useEffect(() => {
-    // Load theme from localStorage
-    const savedTheme = localStorage.getItem("chat-theme") as "light" | "dark";
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.classList.toggle("light", savedTheme === "light");
-    }
-  }, []);
->>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
 
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
@@ -106,7 +78,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider value={{ user, loading, theme, toggleTheme, logout }}>
-<<<<<<< HEAD
       {loading ? (
         <div className="w-full h-svh grid place-items-center bg-background text-foreground">
           <Loader2 className="animate-spin size-8" aria-hidden />
@@ -114,9 +85,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       ) : (
         children
       )}
-=======
-      {!loading && children}
->>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
     </AuthContext.Provider>
   );
 };

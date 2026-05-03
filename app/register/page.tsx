@@ -30,10 +30,6 @@ export default function RegisterPage() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-<<<<<<< HEAD
-=======
-      // Create user document in Firestore
->>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         uid: user.uid,
@@ -43,20 +39,14 @@ export default function RegisterPage() {
       });
 
       router.push("/");
-<<<<<<< HEAD
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Registration failed");
-=======
-    } catch (err: any) {
-      setError(err.message);
->>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
     } finally {
       setLoading(false);
     }
   };
 
   return (
-<<<<<<< HEAD
     <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground p-4">
       <div className="w-full max-w-md mx-auto h-1 bg-secondary mb-6 shrink-0" aria-hidden />
       <div className="w-full max-w-md p-8 bg-surface border border-border">
@@ -68,74 +58,41 @@ export default function RegisterPage() {
             <label className="block text-xs font-bold uppercase tracking-widest text-foreground mb-2">
               Email
             </label>
-=======
-    <div className="flex flex-col items-center justify-center min-h-screen bg-slate-900 text-white p-4">
-      <div className="w-full max-w-md p-8 bg-slate-800 rounded-2xl shadow-xl border border-slate-700">
-        <h1 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
-          Create Account
-        </h1>
-        <p className="text-slate-400 text-center mb-8">Join the real-time conversation</p>
-        
-        <form onSubmit={handleRegister} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1">Email Address</label>
->>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-<<<<<<< HEAD
               className="w-full px-4 py-3 bg-input border border-border text-foreground placeholder:text-muted focus:outline-none focus:ring-0 focus:border-identity transition-colors"
-=======
-              className="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
->>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
               placeholder="you@example.com"
               required
             />
           </div>
           <div>
-<<<<<<< HEAD
             <label className="block text-xs font-bold uppercase tracking-widest text-foreground mb-2">
               Password
             </label>
-=======
-            <label className="block text-sm font-medium text-slate-300 mb-1">Password</label>
->>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-<<<<<<< HEAD
               className="w-full px-4 py-3 bg-input border border-border text-foreground placeholder:text-muted focus:outline-none focus:ring-0 focus:border-identity transition-colors"
-=======
-              className="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
->>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
               placeholder="••••••••"
               required
             />
           </div>
           <div>
-<<<<<<< HEAD
             <label className="block text-xs font-bold uppercase tracking-widest text-foreground mb-2">
               Confirm password
             </label>
-=======
-            <label className="block text-sm font-medium text-slate-300 mb-1">Confirm Password</label>
->>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-<<<<<<< HEAD
               className="w-full px-4 py-3 bg-input border border-border text-foreground placeholder:text-muted focus:outline-none focus:ring-0 focus:border-identity transition-colors"
-=======
-              className="w-full px-4 py-2 bg-slate-900 border border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
->>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
               placeholder="••••••••"
               required
             />
           </div>
-<<<<<<< HEAD
 
           {error && (
             <div className="p-3 bg-[var(--danger-muted)] border border-danger text-danger text-sm font-medium">
@@ -156,28 +113,6 @@ export default function RegisterPage() {
           Already registered?{" "}
           <Link href="/login" className="text-identity font-bold underline underline-offset-4 hover:text-secondary">
             Sign in
-=======
-          
-          {error && (
-            <div className="p-3 bg-red-500/10 border border-red-500/50 rounded text-red-500 text-sm">
-              {error}
-            </div>
-          )}
-          
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 px-4 bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 text-white font-semibold rounded-lg shadow-lg transform transition-all active:scale-[0.98] disabled:opacity-50"
-          >
-            {loading ? "Creating Account..." : "Register"}
-          </button>
-        </form>
-        
-        <p className="mt-8 text-center text-slate-400 text-sm">
-          Already have an account?{" "}
-          <Link href="/login" className="text-blue-400 hover:underline">
-            Login here
->>>>>>> a279fb3274b45118cb6a156a58b33a09935238b5
           </Link>
         </p>
       </div>
