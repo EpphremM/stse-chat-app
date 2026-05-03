@@ -12,18 +12,39 @@ import { auth, db } from "@/lib/firebase";
 interface AuthContextType {
   user: User | null;
   loading: boolean;
+  theme: "light" | "dark";
+  toggleTheme: () => void;
   logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
+  theme: "dark",
+  toggleTheme: () => {},
   logout: async () => {},
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
+
+  useEffect(() => {
+    // Load theme from localStorage
+    const savedTheme = localStorage.getItem("chat-theme") as "light" | "dark";
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle("light", savedTheme === "light");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    localStorage.setItem("chat-theme", newTheme);
+    document.documentElement.classList.toggle("light", newTheme === "light");
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -34,18 +55,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         await setDoc(userRef, {
           email: user.email,
           uid: user.uid,
+          displayName: user.displayName || user.email?.split("@")[0],
+          photoURL: user.photoURL || null,
           status: "online",
           lastSeen: serverTimestamp(),
         }, { merge: true });
       } else {
-        if (user) {
-          // If we had a user and they are now null, they logged out
-          const userRef = doc(db, "users", user.uid);
-          await updateDoc(userRef, {
-            status: "offline",
-            lastSeen: serverTimestamp(),
-          });
-        }
         setUser(null);
       }
       setLoading(false);
@@ -66,7 +81,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, logout }}>
+    <AuthContext.Provider value={{ user, loading, theme, toggleTheme, logout }}>
       {!loading && children}
     </AuthContext.Provider>
   );
