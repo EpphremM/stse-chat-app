@@ -64,6 +64,7 @@ export default function UserSidebar({ onSelectUser, selectedRoomId }: UserSideba
   }, [currentUser]);
 
   const filteredUsers = users.filter((u) =>
+    u.uid !== currentUser?.uid &&
     (u.displayName || u.email).toLowerCase().includes(searchTerm.toLowerCase())
   );
 

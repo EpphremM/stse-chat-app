@@ -243,7 +243,30 @@ export default function ChatWindow({ selectedChat }: ChatWindowProps) {
   };
 
   const handleSendMessage = async (e: React.FormEvent) => {
-    // ... same as before
+    e.preventDefault();
+    if (!inputText.trim()) return;
+
+    const messageData = {
+      text: inputText,
+      senderId: currentUser!.uid,
+      timestamp: serverTimestamp(),
+      read: false,
+      type: "text",
+    };
+
+    setInputText("");
+    sendTyping(currentUser!.uid, false);
+
+    try {
+      const docRef = await addDoc(collection(db, "rooms", roomId, "messages"), messageData);
+      sendMessage({
+        ...messageData,
+        id: docRef.id,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (err) {
+      console.error("Error sending message:", err);
+    }
   };
 
   const handleLeaveGroup = async () => {
