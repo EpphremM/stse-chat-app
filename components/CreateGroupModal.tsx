@@ -30,7 +30,12 @@ export default function CreateGroupModal({ isOpen, onClose }: CreateGroupModalPr
     const q = query(collection(db, "users"), where("uid", "!=", currentUser.uid));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const userData: UserData[] = [];
-      snapshot.forEach((doc) => userData.push(doc.data() as UserData));
+      snapshot.forEach((doc) => {
+        const data = doc.data() as UserData;
+        if (data.uid !== currentUser.uid) {
+          userData.push(data);
+        }
+      });
       setUsers(userData);
     });
     return () => unsubscribe();
