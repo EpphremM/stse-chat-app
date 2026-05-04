@@ -65,6 +65,36 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return () => unsubscribe();
   }, []);
 
+  /** Reflect real presence: Firestore stayed "online" until explicit logout. Sync with tab visibility. */
+  useEffect(() => {
+    if (typeof document === "undefined" || !user) return;
+
+    const uid = user.uid;
+
+    const setPresence = (status: "online" | "offline") => {
+      void setDoc(
+        doc(db, "users", uid),
+        { status, lastSeen: serverTimestamp() },
+        { merge: true }
+      );
+    };
+
+    const syncFromVisibility = () => {
+      setPresence(document.visibilityState === "visible" ? "online" : "offline");
+    };
+
+    syncFromVisibility();
+
+    document.addEventListener("visibilitychange", syncFromVisibility);
+    const onPageHide = () => setPresence("offline");
+    window.addEventListener("pagehide", onPageHide);
+
+    return () => {
+      document.removeEventListener("visibilitychange", syncFromVisibility);
+      window.removeEventListener("pagehide", onPageHide);
+    };
+  }, [user]);
+
   const logout = async () => {
     if (user) {
       const userRef = doc(db, "users", user.uid);

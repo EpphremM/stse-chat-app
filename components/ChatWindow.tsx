@@ -38,6 +38,7 @@ import {
   LogOut,
   UserPlus,
   Trash2,
+  ArrowLeft,
 } from "lucide-react";
 import { format } from "date-fns";
 
@@ -66,9 +67,11 @@ interface ChatWindowProps {
     participants?: string[];
     createdBy?: string;
   };
+  /** Narrow screens: return to the conversation list (sidebar). */
+  onMobileBack?: () => void;
 }
 
-export default function ChatWindow({ selectedChat }: ChatWindowProps) {
+export default function ChatWindow({ selectedChat, onMobileBack }: ChatWindowProps) {
   const { user: currentUser } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState("");
@@ -358,8 +361,18 @@ export default function ChatWindow({ selectedChat }: ChatWindowProps) {
 
   return (
     <div className="flex-1 flex flex-col bg-background overflow-hidden relative">
-      <div className="h-16 border-b border-border flex items-center justify-between px-6 bg-surface sticky top-0 z-10">
+      <div className="h-16 border-b border-border flex items-center justify-between px-4 md:px-6 bg-surface sticky top-0 z-10 gap-2">
         <div className="flex items-center min-w-0">
+          {onMobileBack && (
+            <button
+              type="button"
+              onClick={onMobileBack}
+              className="md:hidden shrink-0 p-2 -ml-1 mr-1 text-muted hover:text-foreground hover:bg-secondary/15 transition-colors"
+              aria-label="Back to conversations"
+            >
+              <ArrowLeft size={22} strokeWidth={2.5} />
+            </button>
+          )}
           <div
             className={`w-10 h-10 shrink-0 border border-border flex items-center justify-center mr-3 font-black text-sm ${isGroup ? "bg-secondary/40 text-secondary-fg" : "bg-identity text-identity-fg"
               }`}

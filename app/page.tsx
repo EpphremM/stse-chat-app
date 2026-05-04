@@ -50,7 +50,11 @@ export default function Home() {
 
         <div className={`${!selectedChat ? "hidden md:flex" : "flex"} flex-1 h-full`}>
           {selectedChat ? (
-            <ChatWindow key={selectedChat.uid || selectedChat.id} selectedChat={selectedChat} />
+            <ChatWindow
+              key={selectedChat.uid || selectedChat.id}
+              selectedChat={selectedChat}
+              onMobileBack={() => setSelectedChat(null)}
+            />
           ) : (
             <div className="flex-1 flex flex-col items-center justify-center text-muted p-8 border-l border-border">
               <div className="w-20 h-20 bg-surface border border-border flex items-center justify-center mb-6">
